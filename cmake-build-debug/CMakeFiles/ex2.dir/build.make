@@ -43,10 +43,10 @@ RM = /usr/local/APP/jetbrains/clion/2019.2.1/bin/cmake/linux/bin/cmake -E remove
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /cs/usr/shahaf.hermann/os2
+CMAKE_SOURCE_DIR = /cs/usr/iporat08/os2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /cs/usr/shahaf.hermann/os2/cmake-build-debug
+CMAKE_BINARY_DIR = /cs/usr/iporat08/os2/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/ex2.dir/depend.make
@@ -59,42 +59,42 @@ include CMakeFiles/ex2.dir/flags.make
 
 CMakeFiles/ex2.dir/main.cpp.o: CMakeFiles/ex2.dir/flags.make
 CMakeFiles/ex2.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cs/usr/shahaf.hermann/os2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ex2.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ex2.dir/main.cpp.o -c /cs/usr/shahaf.hermann/os2/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cs/usr/iporat08/os2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ex2.dir/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ex2.dir/main.cpp.o -c /cs/usr/iporat08/os2/main.cpp
 
 CMakeFiles/ex2.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ex2.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cs/usr/shahaf.hermann/os2/main.cpp > CMakeFiles/ex2.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cs/usr/iporat08/os2/main.cpp > CMakeFiles/ex2.dir/main.cpp.i
 
 CMakeFiles/ex2.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ex2.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cs/usr/shahaf.hermann/os2/main.cpp -o CMakeFiles/ex2.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cs/usr/iporat08/os2/main.cpp -o CMakeFiles/ex2.dir/main.cpp.s
 
 CMakeFiles/ex2.dir/uthreads.cpp.o: CMakeFiles/ex2.dir/flags.make
 CMakeFiles/ex2.dir/uthreads.cpp.o: ../uthreads.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cs/usr/shahaf.hermann/os2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ex2.dir/uthreads.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ex2.dir/uthreads.cpp.o -c /cs/usr/shahaf.hermann/os2/uthreads.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cs/usr/iporat08/os2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ex2.dir/uthreads.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ex2.dir/uthreads.cpp.o -c /cs/usr/iporat08/os2/uthreads.cpp
 
 CMakeFiles/ex2.dir/uthreads.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ex2.dir/uthreads.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cs/usr/shahaf.hermann/os2/uthreads.cpp > CMakeFiles/ex2.dir/uthreads.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cs/usr/iporat08/os2/uthreads.cpp > CMakeFiles/ex2.dir/uthreads.cpp.i
 
 CMakeFiles/ex2.dir/uthreads.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ex2.dir/uthreads.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cs/usr/shahaf.hermann/os2/uthreads.cpp -o CMakeFiles/ex2.dir/uthreads.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cs/usr/iporat08/os2/uthreads.cpp -o CMakeFiles/ex2.dir/uthreads.cpp.s
 
 CMakeFiles/ex2.dir/Thread.cpp.o: CMakeFiles/ex2.dir/flags.make
 CMakeFiles/ex2.dir/Thread.cpp.o: ../Thread.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cs/usr/shahaf.hermann/os2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ex2.dir/Thread.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ex2.dir/Thread.cpp.o -c /cs/usr/shahaf.hermann/os2/Thread.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cs/usr/iporat08/os2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ex2.dir/Thread.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ex2.dir/Thread.cpp.o -c /cs/usr/iporat08/os2/Thread.cpp
 
 CMakeFiles/ex2.dir/Thread.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ex2.dir/Thread.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cs/usr/shahaf.hermann/os2/Thread.cpp > CMakeFiles/ex2.dir/Thread.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /cs/usr/iporat08/os2/Thread.cpp > CMakeFiles/ex2.dir/Thread.cpp.i
 
 CMakeFiles/ex2.dir/Thread.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ex2.dir/Thread.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cs/usr/shahaf.hermann/os2/Thread.cpp -o CMakeFiles/ex2.dir/Thread.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /cs/usr/iporat08/os2/Thread.cpp -o CMakeFiles/ex2.dir/Thread.cpp.s
 
 # Object files for target ex2
 ex2_OBJECTS = \
@@ -110,7 +110,7 @@ ex2: CMakeFiles/ex2.dir/uthreads.cpp.o
 ex2: CMakeFiles/ex2.dir/Thread.cpp.o
 ex2: CMakeFiles/ex2.dir/build.make
 ex2: CMakeFiles/ex2.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/cs/usr/shahaf.hermann/os2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable ex2"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/cs/usr/iporat08/os2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable ex2"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ex2.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -123,6 +123,6 @@ CMakeFiles/ex2.dir/clean:
 .PHONY : CMakeFiles/ex2.dir/clean
 
 CMakeFiles/ex2.dir/depend:
-	cd /cs/usr/shahaf.hermann/os2/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /cs/usr/shahaf.hermann/os2 /cs/usr/shahaf.hermann/os2 /cs/usr/shahaf.hermann/os2/cmake-build-debug /cs/usr/shahaf.hermann/os2/cmake-build-debug /cs/usr/shahaf.hermann/os2/cmake-build-debug/CMakeFiles/ex2.dir/DependInfo.cmake --color=$(COLOR)
+	cd /cs/usr/iporat08/os2/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /cs/usr/iporat08/os2 /cs/usr/iporat08/os2 /cs/usr/iporat08/os2/cmake-build-debug /cs/usr/iporat08/os2/cmake-build-debug /cs/usr/iporat08/os2/cmake-build-debug/CMakeFiles/ex2.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ex2.dir/depend
 

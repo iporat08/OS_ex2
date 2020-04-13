@@ -20,8 +20,10 @@ Thread* mainThread; //TODO Needed?
 int numOfThreads;
 std::map<int , Thread*> idMap;
 int *quantumForPriority;
+int numOfPriorities;
 int totalNumOfQuantum = 0;
 struct itimerval timer;
+sigset_t maskedSet;
 
 void startTimer() {
     struct sigaction sa = {0};
@@ -63,7 +65,10 @@ int uthread_init(int *quantum_usecs, int size){
             return -1;
         }
     }
+    sigemptyset(&maskedSet);
+    sigaddset(&maskedSet, SIGVTALRM);
     quantumForPriority = quantum_usecs;
+    numOfPriorities = size;
     idMap = {};
     mainThread = new Thread(0, 0, nullptr);
     idMap[0] = mainThread;
@@ -73,4 +78,86 @@ int uthread_init(int *quantum_usecs, int size){
     startTimer();
     return 0;
 }
+
+/**
+ * //TODO
+ * @return
+ */
+int getLowestIdAvailable(){
+    int i;
+    for(i = 1; i < MAX_THREAD_NUM; ++i){
+        if(idMap.find(i) == idMap.end()){
+            return i;
+        }
+    }
+    return i;
+}
+
+
+int uthread_spawn(void (*f)(void), int priority){
+    sigprocmask(SIG_BLOCK, &maskedSet, NULL);
+    int id = getLowestIdAvailable();
+    if(id == MAX_THREAD_NUM){
+        std::cerr << "thread library error: number of concurrent threads exceeded the limit "
+                     "(MAX_THREAD_NUM)!" << std::endl;
+        sigprocmask(SIG_UNBLOCK, &maskedSet, NULL);
+        return -1;
+    }
+    Thread* newThread = new Thread(id, priority, f);
+    ++numOfThreads;
+    readyQ.push(newThread);
+    sigprocmask(SIG_UNBLOCK, &maskedSet, NULL);
+    return id;
+}
+
+int uthread_change_priority(int tid, int priority){
+    sigprocmask(SIG_BLOCK, &maskedSet, NULL);
+    if(idMap.find(tid) == idMap.end() || priority >= numOfPriorities){
+        std::cerr << "thread library error: tid or priority not found!" << std::endl;
+        sigprocmask(SIG_UNBLOCK, &maskedSet, NULL);
+        return -1;
+    }
+    idMap[tid]->setPriority(priority);
+    sigprocmask(SIG_UNBLOCK, &maskedSet, NULL);
+    return 0; //TODO or return the id of the created thread?
+}
+
+int uthread_terminate(int tid){
+    sigprocmask(SIG_BLOCK, &maskedSet, NULL);
+    if(idMap.find(tid) == idMap.end()){
+        std::cerr << "thread library error: cannot terminate, tid not found!" << std::endl;
+        sigprocmask(SIG_UNBLOCK, &maskedSet, NULL);
+        return -1;
+    }
+
+    if(tid == 0){
+        idMap.clear();
+        exit(0);
+    }
+    if(idMap[tid] != running){
+
+    }
+
+
+
+
+    sigprocmask(SIG_UNBLOCK, &maskedSet, NULL);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

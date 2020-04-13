@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/cs/usr/shahaf.hermann/os2/Thread.cpp" "/cs/usr/shahaf.hermann/os2/cmake-build-debug/CMakeFiles/ex2.dir/Thread.cpp.o"
-  "/cs/usr/shahaf.hermann/os2/main.cpp" "/cs/usr/shahaf.hermann/os2/cmake-build-debug/CMakeFiles/ex2.dir/main.cpp.o"
-  "/cs/usr/shahaf.hermann/os2/uthreads.cpp" "/cs/usr/shahaf.hermann/os2/cmake-build-debug/CMakeFiles/ex2.dir/uthreads.cpp.o"
+  "/cs/usr/iporat08/os2/Thread.cpp" "/cs/usr/iporat08/os2/cmake-build-debug/CMakeFiles/ex2.dir/Thread.cpp.o"
+  "/cs/usr/iporat08/os2/main.cpp" "/cs/usr/iporat08/os2/cmake-build-debug/CMakeFiles/ex2.dir/main.cpp.o"
+  "/cs/usr/iporat08/os2/uthreads.cpp" "/cs/usr/iporat08/os2/cmake-build-debug/CMakeFiles/ex2.dir/uthreads.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
