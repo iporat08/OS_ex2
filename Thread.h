@@ -6,9 +6,12 @@
 #include <signal.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include "uthreads.h"
+
 
 #ifndef EX2_THREAD_H
 #define EX2_THREAD_H
+
 
 #ifdef __x86_64__
 /* code for 64 bit Intel arch */
@@ -50,22 +53,43 @@ address_t translate_address(address_t addr)
 
 #endif
 
+enum State{READY, BLOCKED, RUNNING};
 
 class Thread {
 private:
     int id;
     int numOfQuantum;
-    sigjmp_buf env;
+    sigjmp_buf env {}; //TODO does this initialization work?
     int priority;
-    int state; //TODO needed?
-
-
-
-
+    State state; //TODO needed?
+    char stack[STACK_SIZE]{}; //TODO is {} needed?
 
 
 public:
+    Thread(const int& id, const int& priority, void (*f)(void));
 
+    //////////////////////    setters     //////////////////////
+    void setPriority(const int& newPriority){priority = newPriority;}
+
+    void setState(const State& newState){state = newState;}
+
+
+    //////////////////////    getters     //////////////////////
+
+    const int& getId(){return id;}
+
+    const int& getNumOfQuantum(){return numOfQuantum;}
+
+    const int& getPriority(){return priority;} //TODO needed?
+
+    const State& getState(){return state;}
+
+    sigjmp_buf& getEnv(){return env;} //TODO maybe the Thread should handle env changes?
+
+
+    //////////////////////    methods     //////////////////////
+
+    void incrementQuantum(){++numOfQuantum;} //TODO private or public?
 };
 
 
