@@ -12,14 +12,16 @@
 #include <setjmp.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include <memory>
 
-std::queue<Thread*> readyQ; //TODO
-std::vector<Thread> blocked; //TODO what's the right DB?
-Thread* running;
-Thread* mainThread; //TODO Needed?
+typedef  std::shared_ptr<Thread> smartThreadPtr;
+
+std::deque<int> readyQ; //TODO
+std::vector<smartThreadPtr> blocked; //TODO what's the right DB?
+smartThreadPtr running;
 int numOfThreads;
-std::map<int , Thread*> idMap;
-int *quantumForPriority;
+std::map<int , smartThreadPtr> idMap;
+int *priorityArray;
 int numOfPriorities;
 int totalNumOfQuantum = 0;
 struct itimerval timer;
@@ -35,7 +37,7 @@ void startTimer() {
         exit(1);
     }
 
-    int quantum = quantumForPriority[readyQ.front()->getPriority()];
+    int quantum = priorityArray[idMap[readyQ.front()]->getPriority()];
     int quantum_seconds = quantum / 1000000;
     int quantum_mseconds = quantum % 1000000;
 
@@ -67,12 +69,12 @@ int uthread_init(int *quantum_usecs, int size){
     }
     sigemptyset(&maskedSet);
     sigaddset(&maskedSet, SIGVTALRM);
-    quantumForPriority = quantum_usecs;
+    priorityArray = quantum_usecs;
     numOfPriorities = size;
     idMap = {};
-    mainThread = new Thread(0, 0, nullptr);
+    smartThreadPtr mainThread (new Thread(0, 0, nullptr));
     idMap[0] = mainThread;
-    readyQ.push(mainThread);
+    readyQ.push_back(0);
     sigsetjmp(idMap[0]->getEnv(),1);
     numOfThreads = 1;
     startTimer();
@@ -103,9 +105,9 @@ int uthread_spawn(void (*f)(void), int priority){
         sigprocmask(SIG_UNBLOCK, &maskedSet, NULL);
         return -1;
     }
-    Thread* newThread = new Thread(id, priority, f);
+    smartThreadPtr newThread(new Thread(id, priority, f));
     ++numOfThreads;
-    readyQ.push(newThread);
+    readyQ.push_back(id);
     sigprocmask(SIG_UNBLOCK, &maskedSet, NULL);
     return id;
 }
@@ -122,6 +124,16 @@ int uthread_change_priority(int tid, int priority){
     return 0; //TODO or return the id of the created thread?
 }
 
+
+template<typename T>  // TODO: verify
+void removeElement(T& container, int const& tid) {
+    auto position = std::find(container.cbegin(), container.cend(), tid);
+    if(position != container.cend()){
+        container.erase(position);
+    }
+}
+
+
 int uthread_terminate(int tid){
     sigprocmask(SIG_BLOCK, &maskedSet, NULL);
     if(idMap.find(tid) == idMap.end()){
@@ -135,13 +147,25 @@ int uthread_terminate(int tid){
         exit(0);
     }
     if(idMap[tid] != running){
+        idMap.erase(tid);
+//        auto position = std::find(readyQ.cbegin(), readyQ.cend(), tid);
+//        if(position != readyQ.cend()){
+//            readyQ.erase(position);
+//        }
+        --numOfThreads;
+//        auto position2 = std::find(blocked.cbegin(), blocked.cend(), tid);
+//        if(position2 != blocked.cend()){
+//            blocked.erase(position2);
+//        }
+        removeElement(readyQ, tid);
+        removeElement(blocked, tid);
+    }
+    else {
 
     }
 
-
-
-
     sigprocmask(SIG_UNBLOCK, &maskedSet, NULL);
+    return 0;
 }
 
 
