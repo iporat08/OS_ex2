@@ -14,11 +14,22 @@
 #include <sys/time.h>
 #include <memory>
 
+#define BLOCK sigprocmask(SIG_BLOCK, &maskedSet, NULL)
+#define  UNBLOCK sigprocmask(SIG_UNBLOCK, &maskedSet, NULL)
+#define SPAWN_ERR "thread library error: number of concurrent threads exceeded the limit \
+                                                                                (MAX_THREAD_NUM)!"
+#define PRIORITY_ERR "thread library error: tid or priority not found!"
+#define TERMINATE_ERR "thread library error: cannot terminate, tid not found!"
+#define SIGACTION_ERR "system error: sigaction error"
+#define SETITIMER_ERR "system error: setitimer error"
+#define INIT_ERR "thread library error: invalid quantum input on init"
+#define BLOCK_ERR "thread library error: main thread cannot be blocked or tid to block not found"
+
 typedef  std::shared_ptr<Thread> smartThreadPtr;
 
 std::deque<int> readyQ; //TODO
-std::vector<smartThreadPtr> blocked; //TODO what's the right DB?
-smartThreadPtr running;
+//std::vector<int> blocked; //TODO what's the right DB?
+int runningId;
 int numOfThreads;
 std::map<int , smartThreadPtr> idMap;
 int *priorityArray;
@@ -33,7 +44,7 @@ void startTimer() {
     // Install timer_handler as the signal handler for SIGVTALRM.
     sa.sa_handler = &switchThread;
     if (sigaction(SIGVTALRM, &sa, NULL) < 0) {
-        std::cerr << "system error: sigaction error" << std::endl;
+        std::cerr << SIGACTION_ERR << std::endl;
         exit(1);
     }
 
@@ -52,7 +63,7 @@ void startTimer() {
 
     // Start a virtual timer. It counts down whenever this process is executing.
     if (setitimer (ITIMER_VIRTUAL, &timer, NULL)) {
-        std::cerr << "system error: setitimer error" << std::endl;
+        std::cerr << SETITIMER_ERR << std::endl;
         exit(1);
     }
 
@@ -63,7 +74,7 @@ void startTimer() {
 int uthread_init(int *quantum_usecs, int size){
     for(int i = 0; i < size; ++i){
         if(quantum_usecs[i] < 0){
-            std::cerr << "thread library error: invalid quantum input on init" << std::endl;
+            std::cerr << INIT_ERR << std::endl;
             return -1;
         }
     }
@@ -85,7 +96,7 @@ int uthread_init(int *quantum_usecs, int size){
  * //TODO
  * @return
  */
-int getLowestIdAvailable(){
+int getLowestIdAvailable(){ //TODO could be replaced by a stack
     int i;
     for(i = 1; i < MAX_THREAD_NUM; ++i){
         if(idMap.find(i) == idMap.end()){
@@ -97,35 +108,34 @@ int getLowestIdAvailable(){
 
 
 int uthread_spawn(void (*f)(void), int priority){
-    sigprocmask(SIG_BLOCK, &maskedSet, NULL);
+    BLOCK;
     int id = getLowestIdAvailable();
     if(id == MAX_THREAD_NUM){
-        std::cerr << "thread library error: number of concurrent threads exceeded the limit "
-                     "(MAX_THREAD_NUM)!" << std::endl;
-        sigprocmask(SIG_UNBLOCK, &maskedSet, NULL);
+        std::cerr << SPAWN_ERR << std::endl;
+        UNBLOCK;
         return -1;
     }
     smartThreadPtr newThread(new Thread(id, priority, f));
     ++numOfThreads;
     readyQ.push_back(id);
-    sigprocmask(SIG_UNBLOCK, &maskedSet, NULL);
+    UNBLOCK;
     return id;
 }
 
 int uthread_change_priority(int tid, int priority){
-    sigprocmask(SIG_BLOCK, &maskedSet, NULL);
+    BLOCK;
     if(idMap.find(tid) == idMap.end() || priority >= numOfPriorities){
-        std::cerr << "thread library error: tid or priority not found!" << std::endl;
-        sigprocmask(SIG_UNBLOCK, &maskedSet, NULL);
+        std::cerr << PRIORITY_ERR << std::endl;
+        UNBLOCK;
         return -1;
     }
     idMap[tid]->setPriority(priority);
-    sigprocmask(SIG_UNBLOCK, &maskedSet, NULL);
+    UNBLOCK;
     return 0; //TODO or return the id of the created thread?
 }
 
 
-template<typename T>  // TODO: verify
+template<typename T>  // TODO: might npt have to be template!!!
 void removeElement(T& container, int const& tid) {
     auto position = std::find(container.cbegin(), container.cend(), tid);
     if(position != container.cend()){
@@ -135,40 +145,58 @@ void removeElement(T& container, int const& tid) {
 
 
 int uthread_terminate(int tid){
-    sigprocmask(SIG_BLOCK, &maskedSet, NULL);
+    BLOCK;
     if(idMap.find(tid) == idMap.end()){
-        std::cerr << "thread library error: cannot terminate, tid not found!" << std::endl;
-        sigprocmask(SIG_UNBLOCK, &maskedSet, NULL);
+        std::cerr << TERMINATE_ERR << std::endl;
+        UNBLOCK;
         return -1;
     }
 
     if(tid == 0){
-        idMap.clear();
+        idMap.clear();// TODO needed?
         exit(0);
     }
-    if(idMap[tid] != running){
-        idMap.erase(tid);
+
+    idMap.erase(tid);
 //        auto position = std::find(readyQ.cbegin(), readyQ.cend(), tid);
 //        if(position != readyQ.cend()){
 //            readyQ.erase(position);
 //        }
-        --numOfThreads;
-//        auto position2 = std::find(blocked.cbegin(), blocked.cend(), tid);
-//        if(position2 != blocked.cend()){
-//            blocked.erase(position2);
-//        }
-        removeElement(readyQ, tid);
-        removeElement(blocked, tid);
-    }
-    else {
+    --numOfThreads;
+    removeElement(readyQ, tid);
 
+    if(tid == runningId) { //TODO waiting for an answer from Noa
+        runningId = -1;
+        UNBLOCK;
+        switchThreads();
     }
-
-    sigprocmask(SIG_UNBLOCK, &maskedSet, NULL);
+    UNBLOCK;
     return 0;
 }
 
 
+
+int uthread_block(int tid){
+    BLOCK;
+    if(idMap.find(tid) == idMap.end() || tid == 0){
+        std::cerr << BLOCK_ERR << std::endl;
+        UNBLOCK;
+        return -1;
+    }
+    if(idMap[tid]->getState() == BLOCKED){
+        UNBLOCK;
+        return 0;
+    }
+    idMap[tid]->setState(BLOCKED);
+    removeElement(readyQ, tid); // remove from READY queue if there
+
+    if(tid == runningId){
+        UNBLOCK;
+    }
+
+
+
+}
 
 
 
