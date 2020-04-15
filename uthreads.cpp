@@ -44,59 +44,71 @@ struct itimerval timer;
 sigset_t maskedSet;
 
 
-void switchThreads(int placeHolder){
-//    BLOCK;
+void scheduler(int placeHolder){
+    BLOCK;
     ++totalNumOfQuantum;
     if(runningId != BLOCKED_OR_TERMINATED){
         int ret_val = sigsetjmp(idMap[runningId]->getEnv(),1);
         printf("SWITCH: ret_val=%d\n", ret_val);//TODO delete
         if (ret_val == 1) { //TODO 1 == nonzero?
-            //UNBLOCK;
+//            UNBLOCK;
             return;
         }
         readyQ.push_back(runningId);
-    }
-    runningId = readyQ.front();
-    readyQ.pop_front();
-    idMap[runningId]->setState(RUNNING);
-    idMap[runningId]->incrementQuantum();
-    siglongjmp(idMap[runningId]->getEnv(),1);
-}
-
-/**
- * //TODO
- * @return
- */
-void scheduler() {
-    struct sigaction sa = {0};
-
-    // Install timer_handler as the signal handler for SIGVTALRM.
-    sa.sa_handler = &switchThreads;
-    if (sigaction(SIGVTALRM, &sa, NULL) < 0) {
-        std::cerr << SIGACTION_ERR << std::endl;
-        exit(1);
+        idMap[runningId]->setState(READY);
     }
 
     int quantum = priorityArray[idMap[readyQ.front()]->getPriority()];
     int quantum_seconds = quantum / 1000000;
     int quantum_mseconds = quantum % 1000000;
 
-
-    // Configure the timer to expire after 1 sec... */
     timer.it_value.tv_sec = quantum_seconds;
     timer.it_value.tv_usec = quantum_mseconds;
 
-    // configure the timer to expire every 3 sec after that... */
     timer.it_interval.tv_sec = quantum_seconds;
     timer.it_interval.tv_usec = quantum_mseconds;
+
+    runningId = readyQ.front();
+    readyQ.pop_front();
+    idMap[runningId]->setState(RUNNING);
+    idMap[runningId]->incrementQuantum();
 
     // Start a virtual timer. It counts down whenever this process is executing.
     if (setitimer (ITIMER_VIRTUAL, &timer, NULL)) {
         std::cerr << SETITIMER_ERR << std::endl;
         exit(1);
     }
-    switchThreads(0);
+
+    UNBLOCK; //TODO here?
+    siglongjmp(idMap[runningId]->getEnv(),1);
 }
+
+///**
+// * //TODO
+// * @return
+// */
+//void scheduler() {
+//    BLOCK;
+////    int quantum = priorityArray[idMap[readyQ.front()]->getPriority()];
+////    int quantum_seconds = quantum / 1000000;
+////    int quantum_mseconds = quantum % 1000000;
+////
+////    // Configure the timer to expire after 1 sec... */
+////    timer.it_value.tv_sec = quantum_seconds;
+////    timer.it_value.tv_usec = quantum_mseconds;
+////
+////    // configure the timer to expire every 3 sec after that... */
+////    timer.it_interval.tv_sec = quantum_seconds;
+////    timer.it_interval.tv_usec = quantum_mseconds;
+////
+////    // Start a virtual timer. It counts down whenever this process is executing.
+////    if (setitimer (ITIMER_VIRTUAL, &timer, NULL)) {
+////        std::cerr << SETITIMER_ERR << std::endl;
+////        exit(1);
+////    }
+////    UNBLOCK;
+//    scheduler(0);
+//}
 
 int uthread_init(int *quantum_usecs, int size){
     for(int i = 0; i < size; ++i){
@@ -104,6 +116,15 @@ int uthread_init(int *quantum_usecs, int size){
             std::cerr << INIT_ERR << std::endl;
             return FAILURE;
         }
+    }
+
+    struct sigaction sa = {0};
+
+    // Install timer_handler as the signal handler for SIGVTALRM.
+    sa.sa_handler = &scheduler; //TODO scheduler?
+    if (sigaction(SIGVTALRM, &sa, NULL) < 0) {
+        std::cerr << SIGACTION_ERR << std::endl;
+        exit(1);
     }
     sigemptyset(&maskedSet);
     sigaddset(&maskedSet, SIGVTALRM);
@@ -115,7 +136,7 @@ int uthread_init(int *quantum_usecs, int size){
     readyQ.push_back(0);
     sigsetjmp(idMap[0]->getEnv(),1);
     numOfThreads = 1;
-    scheduler();
+    scheduler(0);
     return SUCCESS;
 }
 
@@ -132,7 +153,6 @@ int getLowestIdAvailable(){ //TODO could be replaced by a stack
     }
     return i;
 }
-
 
 int uthread_spawn(void (*f)(void), int priority){
     BLOCK;
@@ -196,7 +216,7 @@ int uthread_terminate(int tid){
     if(tid == runningId) {
         runningId = BLOCKED_OR_TERMINATED;
         UNBLOCK;
-        scheduler();
+        scheduler(0);
     }
     UNBLOCK;
     return SUCCESS;
@@ -219,7 +239,7 @@ int uthread_block(int tid){
     if(tid == runningId){
         runningId = BLOCKED_OR_TERMINATED;
         UNBLOCK;
-        scheduler();
+        scheduler(0);
     }
     UNBLOCK;
     return SUCCESS; //TODO if a running thread blocks itself what should be returned?
