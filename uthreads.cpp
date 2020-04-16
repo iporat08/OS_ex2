@@ -83,32 +83,6 @@ void scheduler(int placeHolder){
     siglongjmp(idMap[runningId]->getEnv(),1);
 }
 
-///**
-// * //TODO
-// * @return
-// */
-//void scheduler() {
-//    BLOCK;
-////    int quantum = priorityArray[idMap[readyQ.front()]->getPriority()];
-////    int quantum_seconds = quantum / 1000000;
-////    int quantum_mseconds = quantum % 1000000;
-////
-////    // Configure the timer to expire after 1 sec... */
-////    timer.it_value.tv_sec = quantum_seconds;
-////    timer.it_value.tv_usec = quantum_mseconds;
-////
-////    // configure the timer to expire every 3 sec after that... */
-////    timer.it_interval.tv_sec = quantum_seconds;
-////    timer.it_interval.tv_usec = quantum_mseconds;
-////
-////    // Start a virtual timer. It counts down whenever this process is executing.
-////    if (setitimer (ITIMER_VIRTUAL, &timer, NULL)) {
-////        std::cerr << SETITIMER_ERR << std::endl;
-////        exit(1);
-////    }
-////    UNBLOCK;
-//    scheduler(0);
-//}
 
 int uthread_init(int *quantum_usecs, int size){
     for(int i = 0; i < size; ++i){
@@ -131,11 +105,7 @@ int uthread_init(int *quantum_usecs, int size){
     priorityArray = quantum_usecs;
     numOfPriorities = size;
     idMap = {};
-    smartThreadPtr mainThread (new Thread(0, 0, nullptr));
-    idMap[0] = mainThread;
-    readyQ.push_back(0);
-    sigsetjmp(idMap[0]->getEnv(),1);
-    numOfThreads = 1;
+    uthread_spawn(nullptr, 0);
     scheduler(0);
     return SUCCESS;
 }
@@ -146,7 +116,7 @@ int uthread_init(int *quantum_usecs, int size){
  */
 int getLowestIdAvailable(){ //TODO could be replaced by a stack
     int i;
-    for(i = 1; i < MAX_THREAD_NUM; ++i){
+    for(i = 0; i < MAX_THREAD_NUM; ++i){
         if(idMap.find(i) == idMap.end()){
             return i;
         }
@@ -165,6 +135,7 @@ int uthread_spawn(void (*f)(void), int priority){
     smartThreadPtr newThread(new Thread(id, priority, f));
     ++numOfThreads;
     readyQ.push_back(id);
+    idMap[id] = newThread;
     UNBLOCK;
     return id;
 }
@@ -178,7 +149,7 @@ int uthread_change_priority(int tid, int priority){
     }
     idMap[tid]->setPriority(priority);
     UNBLOCK;
-    return SUCCESS; //TODO or return the id of the created thread?
+    return SUCCESS;
 }
 
 /**
