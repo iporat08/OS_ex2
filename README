@@ -1,0 +1,37 @@
+shahaf.hermann, iporat08
+Shahaf Hermann (308156983), Ido Porat (307905166)
+EX: 2
+
+FILES:
+uthreads.cpp -- The threads manager
+Thread.h -- A thread class header file
+Thread.cpp -- A thread class implementation
+Makefile -- self explanatory
+README -- you should read this
+
+REMARKS:
+NULL
+
+ANSWERS:
+
+1. A program computing many and multiple complex mathematical calculations, that might take a very long time, 
+   as well as a few other easier calculations that would normally take a fraction of a second.
+   In this case user-level threads would make a lot of sense since the easy calculations wouldn't 
+   have to wait for the heavier ones to complete. It's also better than kernel-level threads since there are
+   no system calls, so we don't have the related overhead.
+2. Advantages: In one word - Isolation.
+	       Each process (and therefore each tab) has a separately allocated memory, hence providing more 
+               resistance to crashes and stability - if one tab crashes (due to an illegal memory access for example),
+               the rest of the tabs should be unaffected, in contrast with thread usage where a thread crashing would 
+	       crash the whole process (due to lack of isolation). Furthermore, inter-process communication
+	       requires OS interference and hence making each tab more secure.
+   Disadvantages: Higher overhead: Creating and terminating processes is significantly slower (by up to 100 times) 
+		  than creating and terminating threads.
+3. Firstly when typing in the command, an interrupt is sent from the keyboard to the OS, which handles it by 
+   sending a SIGINT signal to the process running the application. Next, the application translate the written command
+   Of "kill pid" to the appropriate signal (which is SIGTERM / SIGKILL), sends it to the OS, which handles it by ordering
+   The termination of the requested process with id pid (using SIGKILL).
+4. Real time = Actual time passed.
+   Virtual time = actual running time of the process (time passed while process ran by the CPU).
+   Real time measurement can be used for an alarm clock for example, and Virtual time measurement could be used to measure 
+   a thread's life cycle (as done in this exercise).
