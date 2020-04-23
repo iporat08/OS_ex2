@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/cs/usr/shahaf.hermann/os2test/cmake-build-debug/tests",
+  "command": "/usr/bin/c++   -I/cs/usr/shahaf.hermann/os2test/tests/.. -isystem /cs/usr/shahaf.hermann/os2test/cmake-build-debug/tests/googletest-src/googletest/include -isystem /cs/usr/shahaf.hermann/os2test/cmake-build-debug/tests/googletest-src/googletest  -g   -Wall -Wextra -std=gnu++11 -o CMakeFiles/theTests.dir/tests_to_be_ran_separately.cpp.o -c /cs/usr/shahaf.hermann/os2test/tests/tests_to_be_ran_separately.cpp",
+  "file": "/cs/usr/shahaf.hermann/os2test/tests/tests_to_be_ran_separately.cpp"
+}
+]
