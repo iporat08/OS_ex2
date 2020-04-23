@@ -31,29 +31,51 @@
 #define FAILURE -1
 #define SUCCESS 0
 
-
 typedef  std::shared_ptr<Thread> smartThreadPtr;
 
+/**The READY que, stores threads whose state is ready **/
 std::deque<int> readyQ; //TODO
-//std::vector<int> blocked; //TODO what's the right DB?
+
+/**The id of the currently running thread **/
 int runningId;
+
+/**The number of threads currently existing **/
 int numOfThreads;
+
+/**A map whose keys and values are thread id's and their matching Thread object respectively  **/
 std::map<int , smartThreadPtr> idMap;
+
+/**A deep copy of the first argument of uthreads_init**/
 int *priorityArray;
+
+/**The second argument of uthreads_init **/
 int numOfPriorities;
+
+/**The total number of quantum in which threads occupied the CPU **/
 int totalNumOfQuantum = 0;
+
+/**The timer **/
 struct itimerval timer;
+
+/** The masked set of signals**/
 sigset_t maskedSet;
+
+/**A set containing all the id numbers available for new threads **/
 std::set<int> availableIds;
 
-
+/**
+ * Handler function for the signal SIGVTALRM.
+ * Manage the ready queue as ell as set the timer for the appropriate quantum.
+ * @param placeHolder Handler functions require an int input parameter, but our function had no
+ *                    use of that.
+ */
 void scheduler(int placeHolder){
     if(runningId != BLOCKED_OR_TERMINATED){
         int ret_val = sigsetjmp(idMap[runningId]->getEnv(),1);
-        if (ret_val == 1) { //TODO 1 == nonzero?
+        if (ret_val == 1) {
             return;
         }
-        if(!readyQ.empty()){ //TODO
+        if(!readyQ.empty()){
             readyQ.push_back(runningId);
             idMap[runningId]->setState(READY);
         }
@@ -92,6 +114,9 @@ void scheduler(int placeHolder){
 
 }
 
+/**
+ * Initializes the available ids set by inserting all numbers in range [0, MAX_THREAD_NUM].
+ */
 void init_available_ids() {
     for (int i = 0; i < MAX_THREAD_NUM; ++i) {
         availableIds.insert(i);
@@ -115,7 +140,7 @@ int uthread_init(int *quantum_usecs, int size){
     struct sigaction sa = {};
 
     // Install timer_handler as the signal handler for SIGVTALRM.
-    sa.sa_handler = &scheduler; //TODO scheduler?
+    sa.sa_handler = &scheduler;
     if (sigaction(SIGVTALRM, &sa, NULL) < 0) {
         std::cerr << SIGACTION_ERR << std::endl;
         exit(1);
@@ -136,10 +161,10 @@ int uthread_init(int *quantum_usecs, int size){
 }
 
 /**
- * //TODO
- * @return
+ * Find the lowest available id from the set.
+ * @return The lowest available ID found in the set, or -1 if the set is empty.
  */
-int getLowestIdAvailable(){ //TODO could be replaced by a stack
+int getLowestIdAvailable(){
     if (availableIds.empty()) {
         return FAILURE;
     }
@@ -150,7 +175,7 @@ int getLowestIdAvailable(){ //TODO could be replaced by a stack
 
 int uthread_spawn(void (*f)(void), int priority){
     BLOCK;
-    int id = getLowestIdAvailable(); //TODO stack
+    int id = getLowestIdAvailable();
     if(id == FAILURE){
         std::cerr << SPAWN_ERR << std::endl;
         UNBLOCK;
@@ -180,7 +205,8 @@ int uthread_change_priority(int tid, int priority){
 }
 
 /**
- * //TODO
+ * Generic function for deleting an element with index tid from a given container. If the item
+ * doesn't exist in the container, nothing happens.
  */
 template<typename T>
 void removeElement(T& container, int const& tid) {
@@ -199,7 +225,7 @@ int uthread_terminate(int tid){
     }
 
     if(tid == 0){
-        idMap.clear();// TODO needed?
+        idMap.clear();
         delete priorityArray;
         exit(0);
     }
@@ -207,7 +233,7 @@ int uthread_terminate(int tid){
     idMap.erase(tid);
     availableIds.insert(tid);
     --numOfThreads;
-    removeElement(readyQ, tid); //TODO sp points to memory space that was already freed - BUG potential
+    removeElement(readyQ, tid);
 
     if(tid == runningId) {
         runningId = BLOCKED_OR_TERMINATED;
@@ -280,6 +306,5 @@ int uthread_get_quantums(int tid){
         return FAILURE;
     }
     UNBLOCK;
-    //std::cout << idMap[tid]->getNumOfQuantum()<<std::flush; //TODO delete
     return idMap[tid]->getNumOfQuantum();
 }

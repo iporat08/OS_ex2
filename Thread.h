@@ -12,83 +12,89 @@
 #ifndef EX2_THREAD_H
 #define EX2_THREAD_H
 
-
-//#ifdef __x86_64__
-///* code for 64 bit Intel arch */
-//
-//typedef unsigned long address_t;
-//#define JB_SP 6
-//#define JB_PC 7
-//
-///* A translation is required when using an address of a variable.
-//   Use this as a black box in your code. */
-//address_t translate_address(address_t addr)
-//{
-//    address_t ret;
-//    asm volatile("xor    %%fs:0x30,%0\n"
-//                 "rol    $0x11,%0\n"
-//    : "=g" (ret)
-//    : "0" (addr));
-//    return ret;
-//}
-//
-//#else
-///* code for 32 bit Intel arch */
-//
-//typedef unsigned int address_t;
-//#define JB_SP 4
-//#define JB_PC 5
-//
-///* A translation is required when using an address of a variable.
-//   Use this as a black box in your code. */
-//address_t translate_address(address_t addr)
-//{
-//    address_t ret;
-//    asm volatile("xor    %%gs:0x18,%0\n"
-//		"rol    $0x9,%0\n"
-//                 : "=g" (ret)
-//                 : "0" (addr));
-//    return ret;
-//}
-//
-//#endif
-
+/**Enumeration representing all possible states in a thread's life cycle **/
 enum State{READY, BLOCKED, RUNNING};
 
+/**
+ * A class representing a thread object.
+ */
 class Thread {
 private:
+    /**The thread's id **/
     int id;
+
+    /**The number of quantum in which this thread occupied the CPU **/
     int numOfQuantum;
-    sigjmp_buf env; //TODO does this initialization work?
+
+    /**A struct holding the threads environment data (including but not limited to: PC, SP) **/
+    sigjmp_buf env;
+
+    /**The priority of the thread **/
     int priority;
-    State state; //TODO needed?
-    char stack[STACK_SIZE]{}; //TODO is {} needed?
+
+    /**The state of the thread**/
+    State state;
+
+    /**The stack of the thread **/
+    char stack[STACK_SIZE]{};
 
 
 public:
+    /**
+     * Constructor.
+     * @param id The id for the thread to be constructed
+     * @param priority The priority for the thread to be constructed
+     * @param f The entry function for the thread to be started at.
+     */
     Thread(const int& id, const int& priority, void (*f)(void));
 
     //////////////////////    setters     //////////////////////
+    /**
+     * Set the thread priority
+     * @param newPriority The new priority to set
+     */
     void setPriority(const int& newPriority){priority = newPriority;}
 
+    /**
+     * Set the thread's state
+     * @param newState The new state to set
+     */
     void setState(const State& newState){state = newState;}
 
 
     //////////////////////    getters     //////////////////////
 
+    /**
+     * @return The thread's id
+     */
     const int& getId(){return id;}
 
+    /**
+     * @return The thread's quantum number
+     */
     const int& getNumOfQuantum(){return numOfQuantum;}
 
+    /**
+     * @return The thread's priority
+     */
     const int& getPriority(){return priority;} //TODO needed?
 
+    /**
+     * @return The thread's state
+     */
     const State& getState(){return state;}
 
+    /**
+     * @return The thread's environment
+     */
     sigjmp_buf& getEnv(){return env;} //TODO maybe the Thread should handle env changes?
 
 
     //////////////////////    methods     //////////////////////
 
+    /**
+     * Increment the thread's number of quantum
+     */
     void incrementQuantum(){++numOfQuantum;} //TODO private or public?
 };
 
