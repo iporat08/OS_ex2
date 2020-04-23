@@ -177,6 +177,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/ex2.dir/build.make CMakeFiles/ex2.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+os_ex2_test_matan.o: os_ex2_test_matan.cpp.o
+
+.PHONY : os_ex2_test_matan.o
+
+# target to build an object file
+os_ex2_test_matan.cpp.o:
+	$(MAKE) -f CMakeFiles/ex2.dir/build.make CMakeFiles/ex2.dir/os_ex2_test_matan.cpp.o
+.PHONY : os_ex2_test_matan.cpp.o
+
+os_ex2_test_matan.i: os_ex2_test_matan.cpp.i
+
+.PHONY : os_ex2_test_matan.i
+
+# target to preprocess a source file
+os_ex2_test_matan.cpp.i:
+	$(MAKE) -f CMakeFiles/ex2.dir/build.make CMakeFiles/ex2.dir/os_ex2_test_matan.cpp.i
+.PHONY : os_ex2_test_matan.cpp.i
+
+os_ex2_test_matan.s: os_ex2_test_matan.cpp.s
+
+.PHONY : os_ex2_test_matan.s
+
+# target to generate assembly for a file
+os_ex2_test_matan.cpp.s:
+	$(MAKE) -f CMakeFiles/ex2.dir/build.make CMakeFiles/ex2.dir/os_ex2_test_matan.cpp.s
+.PHONY : os_ex2_test_matan.cpp.s
+
 uthreads.o: uthreads.cpp.o
 
 .PHONY : uthreads.o
@@ -219,6 +246,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... os_ex2_test_matan.o"
+	@echo "... os_ex2_test_matan.i"
+	@echo "... os_ex2_test_matan.s"
 	@echo "... uthreads.o"
 	@echo "... uthreads.i"
 	@echo "... uthreads.s"

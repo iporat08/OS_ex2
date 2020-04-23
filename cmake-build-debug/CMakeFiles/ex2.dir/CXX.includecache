@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cs/usr/shahaf.hermann/os2test/main.cpp
+uthreads.h
+/cs/usr/shahaf.hermann/os2test/uthreads.h
+cstdio
+-
+stdio.h
+-
+setjmp.h
+-
+signal.h
+-
+unistd.h
+-
+sys/time.h
+-
+iostream
+-
+assert.h
+-
+
+/cs/usr/shahaf.hermann/os2test/uthreads.h
+

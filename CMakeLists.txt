@@ -3,7 +3,7 @@ project(ex2)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(ex2 main.cpp uthreads.h uthreads.cpp Thread.cpp Thread.h)
+add_executable(ex2 main.cpp uthreads.h uthreads.cpp Thread.cpp Thread.h os_ex2_test_matan.cpp)
 #cmake_minimum_required(VERSION 3.1)
 ##set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
 ##set (CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_LINKER_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")

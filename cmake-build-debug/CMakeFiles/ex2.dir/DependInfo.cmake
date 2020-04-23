@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/cs/usr/shahaf.hermann/os2test/Thread.cpp" "/cs/usr/shahaf.hermann/os2test/cmake-build-debug/CMakeFiles/ex2.dir/Thread.cpp.o"
   "/cs/usr/shahaf.hermann/os2test/main.cpp" "/cs/usr/shahaf.hermann/os2test/cmake-build-debug/CMakeFiles/ex2.dir/main.cpp.o"
+  "/cs/usr/shahaf.hermann/os2test/os_ex2_test_matan.cpp" "/cs/usr/shahaf.hermann/os2test/cmake-build-debug/CMakeFiles/ex2.dir/os_ex2_test_matan.cpp.o"
   "/cs/usr/shahaf.hermann/os2test/uthreads.cpp" "/cs/usr/shahaf.hermann/os2test/cmake-build-debug/CMakeFiles/ex2.dir/uthreads.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

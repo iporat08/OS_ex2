@@ -19,6 +19,7 @@
 #define UNBLOCK sigprocmask(SIG_UNBLOCK, &maskedSet, NULL)
 #define SPAWN_ERR "thread library error: number of concurrent threads exceeded the limit \
                                                                                 (MAX_THREAD_NUM)!"
+
 #define PRIORITY_ERR "thread library error: tid or priority not found!"
 #define TERMINATE_ERR "thread library error: cannot terminate, tid not found!"
 #define SIGACTION_ERR "system error: sigaction error"
@@ -178,6 +179,19 @@ int uthread_spawn(void (*f)(void), int priority){
     int id = getLowestIdAvailable();
     if(id == FAILURE){
         std::cerr << SPAWN_ERR << std::endl;
+        UNBLOCK;
+        return FAILURE;
+    }
+
+    bool found = false;
+    for(int i = 0; i < numOfPriorities; ++i){
+        if(i == priority){
+            found = true;
+            break;
+        }
+    }
+    if(!found){
+        std::cerr << PRIORITY_ERR << std::endl;
         UNBLOCK;
         return FAILURE;
     }
