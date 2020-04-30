@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/Thread.cpp
+/cs/usr/shahaf.hermann/os2test/Thread.cpp
 Thread.h
-/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/Thread.h
+/cs/usr/shahaf.hermann/os2test/Thread.h
 
-/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/Thread.h
+/cs/usr/shahaf.hermann/os2test/Thread.h
 stdio.h
 -
 setjmp.h
@@ -22,23 +22,23 @@ unistd.h
 sys/time.h
 -
 uthreads.h
-/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/uthreads.h
+/cs/usr/shahaf.hermann/os2test/uthreads.h
 
-/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/main.cpp
+/cs/usr/shahaf.hermann/os2test/main.cpp
 uthreads.h
-/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/uthreads.h
+/cs/usr/shahaf.hermann/os2test/uthreads.h
 string
 -
 iostream
 -
 
-/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/os_ex2_test_matan.cpp
+/cs/usr/shahaf.hermann/os2test/os_ex2_test_matan.cpp
 
-/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/uthreads.cpp
+/cs/usr/shahaf.hermann/os2test/uthreads.cpp
 uthreads.h
-/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/uthreads.h
+/cs/usr/shahaf.hermann/os2test/uthreads.h
 Thread.h
-/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/Thread.h
+/cs/usr/shahaf.hermann/os2test/Thread.h
 algorithm
 -
 queue
@@ -62,5 +62,5 @@ memory
 set
 -
 
-/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/uthreads.h
+/cs/usr/shahaf.hermann/os2test/uthreads.h
 

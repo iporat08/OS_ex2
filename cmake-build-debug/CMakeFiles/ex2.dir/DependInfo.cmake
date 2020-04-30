@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/Thread.cpp" "/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/CMakeFiles/ex2.dir/Thread.cpp.o"
-  "/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/main.cpp" "/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/CMakeFiles/ex2.dir/main.cpp.o"
-  "/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/os_ex2_test_matan.cpp" "/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/CMakeFiles/ex2.dir/os_ex2_test_matan.cpp.o"
-  "/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/uthreads.cpp" "/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/CMakeFiles/ex2.dir/uthreads.cpp.o"
+  "/cs/usr/shahaf.hermann/os2test/Thread.cpp" "/cs/usr/shahaf.hermann/os2test/cmake-build-debug/CMakeFiles/ex2.dir/Thread.cpp.o"
+  "/cs/usr/shahaf.hermann/os2test/main.cpp" "/cs/usr/shahaf.hermann/os2test/cmake-build-debug/CMakeFiles/ex2.dir/main.cpp.o"
+  "/cs/usr/shahaf.hermann/os2test/os_ex2_test_matan.cpp" "/cs/usr/shahaf.hermann/os2test/cmake-build-debug/CMakeFiles/ex2.dir/os_ex2_test_matan.cpp.o"
+  "/cs/usr/shahaf.hermann/os2test/uthreads.cpp" "/cs/usr/shahaf.hermann/os2test/cmake-build-debug/CMakeFiles/ex2.dir/uthreads.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "AppleClang")
+set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
