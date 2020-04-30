@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/cs/usr/shahaf.hermann/os2test/Thread.cpp
-Thread.h
-/cs/usr/shahaf.hermann/os2test/Thread.h
-
 /cs/usr/shahaf.hermann/os2test/Thread.h
 stdio.h
 -

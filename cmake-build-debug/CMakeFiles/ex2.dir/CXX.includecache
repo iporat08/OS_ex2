@@ -6,11 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/cs/usr/shahaf.hermann/os2test/main.cpp
-uthreads.h
-/cs/usr/shahaf.hermann/os2test/uthreads.h
-cstdio
--
+/cs/usr/shahaf.hermann/os2test/Thread.h
 stdio.h
 -
 setjmp.h
@@ -21,9 +17,35 @@ unistd.h
 -
 sys/time.h
 -
+uthreads.h
+/cs/usr/shahaf.hermann/os2test/uthreads.h
+
+/cs/usr/shahaf.hermann/os2test/uthreads.cpp
+uthreads.h
+/cs/usr/shahaf.hermann/os2test/uthreads.h
+Thread.h
+/cs/usr/shahaf.hermann/os2test/Thread.h
+algorithm
+-
+queue
+-
 iostream
 -
-assert.h
+map
+-
+signal.h
+-
+stdio.h
+-
+setjmp.h
+-
+unistd.h
+-
+sys/time.h
+-
+memory
+-
+set
 -
 
 /cs/usr/shahaf.hermann/os2test/uthreads.h

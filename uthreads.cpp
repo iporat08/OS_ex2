@@ -82,7 +82,14 @@ void scheduler(int placeHolder){
         }
     }
 
-    int quantum = priorityArray[idMap[readyQ.front()]->getPriority()];
+    int quantum;
+    if(!readyQ.empty())
+    {
+        quantum = priorityArray[idMap[readyQ.front()]->getPriority()];
+    }
+    else{
+        quantum = priorityArray[idMap[runningId]->getPriority()];
+    }
     int quantum_seconds = quantum / 1000000;
     int quantum_mseconds = quantum % 1000000;
 
@@ -126,7 +133,7 @@ void init_available_ids() {
 
 int uthread_init(int *quantum_usecs, int size){
     for(int i = 0; i < size; ++i){
-        if(quantum_usecs[i] < 0){
+        if(quantum_usecs[i] <= 0){
             std::cerr << INIT_ERR << std::endl;
             return FAILURE;
         }
@@ -176,12 +183,6 @@ int getLowestIdAvailable(){
 
 int uthread_spawn(void (*f)(void), int priority){
     BLOCK;
-    int id = getLowestIdAvailable();
-    if(id == FAILURE){
-        std::cerr << SPAWN_ERR << std::endl;
-        UNBLOCK;
-        return FAILURE;
-    }
 
     bool found = false;
     for(int i = 0; i < numOfPriorities; ++i){
@@ -196,6 +197,15 @@ int uthread_spawn(void (*f)(void), int priority){
         return FAILURE;
     }
 
+    int id = getLowestIdAvailable();
+    if(id == FAILURE){
+        std::cerr << SPAWN_ERR << std::endl;
+        UNBLOCK;
+        return FAILURE;
+    }
+
+
+
     smartThreadPtr newThread(new Thread(id, priority, f));
     ++numOfThreads;
     if(id != 0){
@@ -208,7 +218,7 @@ int uthread_spawn(void (*f)(void), int priority){
 
 int uthread_change_priority(int tid, int priority){
     BLOCK;
-    if(idMap.find(tid) == idMap.end() || priority >= numOfPriorities){
+    if(idMap.find(tid) == idMap.end() || priority >= numOfPriorities || priority < 0){
         std::cerr << PRIORITY_ERR << std::endl;
         UNBLOCK;
         return FAILURE;
