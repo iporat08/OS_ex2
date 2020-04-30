@@ -28,6 +28,7 @@
 #define BLOCK_ERR "thread library error: main thread cannot be blocked or tid to block not found"
 #define RESUME_ERR "thread library error: tid to resume not found"
 #define GET_QUANTUM_ERR "thread library error: tid to get quantum for not found"
+#define MEMORY_ERR "system error: memory allocation failed"
 #define BLOCKED_OR_TERMINATED -1
 #define FAILURE -1
 #define SUCCESS 0
@@ -156,7 +157,11 @@ int uthread_init(int *quantum_usecs, int size){
     sigemptyset(&maskedSet);
     sigaddset(&maskedSet, SIGVTALRM);
     runningId = 0;
-    priorityArray = new int[size];
+    priorityArray = new (std::nothrow) int[size];
+    if(priorityArray == nullptr){
+        std::cerr << MEMORY_ERR << std::endl;
+        exit(1);
+    }
     for(int i = 0; i < size; ++i){
         priorityArray[i] = quantum_usecs[i];
     }
@@ -205,8 +210,14 @@ int uthread_spawn(void (*f)(void), int priority){
     }
 
 
+    Thread* nThread = new (std::nothrow) Thread(id, priority, f);
+    if(nThread == nullptr){
+        std::cerr << MEMORY_ERR << std::endl;
+        exit(1);
+    }
 
-    smartThreadPtr newThread(new Thread(id, priority, f));
+    smartThreadPtr newThread(nThread);
+
     ++numOfThreads;
     if(id != 0){
         readyQ.push_back(id);
