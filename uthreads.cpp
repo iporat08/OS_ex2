@@ -36,7 +36,7 @@
 typedef  std::shared_ptr<Thread> smartThreadPtr;
 
 /**The READY que, stores threads whose state is ready **/
-std::deque<int> readyQ; //TODO
+std::deque<int> readyQ;
 
 /**The id of the currently running thread **/
 int runningId;

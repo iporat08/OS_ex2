@@ -8,99 +8,97 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/cs/usr/shahaf.hermann/os2test/cmake-build-debug"/>
+				<Option working_dir="/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/cs/usr/shahaf.hermann/os2test/cmake-build-debug"/>
+				<Option working_dir="/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="ex2">
-				<Option output="/cs/usr/shahaf.hermann/os2test/cmake-build-debug/ex2" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/cs/usr/shahaf.hermann/os2test/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/include/c++/8"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
-					<Add directory="/usr/include/c++/8/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 ex2"/>
-					<CompileFile command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="ex2/fast">
-				<Option output="/cs/usr/shahaf.hermann/os2test/cmake-build-debug/ex2" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/cs/usr/shahaf.hermann/os2test/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/include/c++/8"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
-					<Add directory="/usr/include/c++/8/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 ex2/fast"/>
-					<CompileFile command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/cs/usr/shahaf.hermann/os2test/cmake-build-debug"/>
+				<Option working_dir="/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j24 -f &quot;/cs/usr/shahaf.hermann/os2test/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ex2">
+				<Option output="/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/ex2" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 ex2"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ex2/fast">
+				<Option output="/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/ex2" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 ex2/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/cs/usr/shahaf.hermann/os2test/Thread.cpp">
+		<Unit filename="/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/Thread.cpp">
 			<Option target="ex2"/>
 		</Unit>
-		<Unit filename="/cs/usr/shahaf.hermann/os2test/Thread.h">
+		<Unit filename="/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/Thread.h">
 			<Option target="ex2"/>
 		</Unit>
-		<Unit filename="/cs/usr/shahaf.hermann/os2test/main.cpp">
+		<Unit filename="/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/main.cpp">
 			<Option target="ex2"/>
 		</Unit>
-		<Unit filename="/cs/usr/shahaf.hermann/os2test/os_ex2_test_matan.cpp">
+		<Unit filename="/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/os_ex2_test_matan.cpp">
 			<Option target="ex2"/>
 		</Unit>
-		<Unit filename="/cs/usr/shahaf.hermann/os2test/uthreads.cpp">
+		<Unit filename="/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/uthreads.cpp">
 			<Option target="ex2"/>
 		</Unit>
-		<Unit filename="/cs/usr/shahaf.hermann/os2test/uthreads.h">
+		<Unit filename="/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/uthreads.h">
 			<Option target="ex2"/>
 		</Unit>
-		<Unit filename="/cs/usr/shahaf.hermann/os2test/CMakeLists.txt">
+		<Unit filename="/Users/shahaf/Documents/UNI/OS/ex2/OS_ex2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

@@ -65,29 +65,24 @@ public:
     //////////////////////    getters     //////////////////////
 
     /**
-     * @return The thread's id
-     */
-    const int& getId(){return id;}
-
-    /**
      * @return The thread's quantum number
      */
-    const int& getNumOfQuantum(){return numOfQuantum;}
+    const int& getNumOfQuantum() const{return numOfQuantum;}
 
     /**
      * @return The thread's priority
      */
-    const int& getPriority(){return priority;} //TODO needed?
+    const int& getPriority() const{return priority;}
 
     /**
      * @return The thread's state
      */
-    const State& getState(){return state;}
+    const State& getState() const{return state;}
 
     /**
      * @return The thread's environment
      */
-    sigjmp_buf& getEnv(){return env;} //TODO maybe the Thread should handle env changes?
+    sigjmp_buf& getEnv(){return env;}
 
 
     //////////////////////    methods     //////////////////////
@@ -95,7 +90,7 @@ public:
     /**
      * Increment the thread's number of quantum
      */
-    void incrementQuantum(){++numOfQuantum;} //TODO private or public?
+    void incrementQuantum(){++numOfQuantum;}
 };
 
 
