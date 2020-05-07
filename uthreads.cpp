@@ -33,7 +33,7 @@
 #define FAILURE -1
 #define SUCCESS 0
 
-typedef  std::shared_ptr<Thread> smartThreadPtr;
+typedef std::shared_ptr<Thread> smartThreadPtr;
 
 /**The READY que, stores threads whose state is ready **/
 std::deque<int> readyQ;
@@ -71,7 +71,7 @@ std::set<int> availableIds;
  * @param placeHolder Handler functions require an int input parameter, but our function had no
  *                    use of that.
  */
-void scheduler(int placeHolder){
+void scheduler(int){
     if(runningId != BLOCKED_OR_TERMINATED){
         int ret_val = sigsetjmp(idMap[runningId]->getEnv(),1);
         if (ret_val == 1) {
@@ -103,7 +103,7 @@ void scheduler(int placeHolder){
     // Start a virtual timer. It counts down whenever this process is executing.
     if (setitimer(ITIMER_VIRTUAL, &timer, NULL)) {
         std::cerr << SETITIMER_ERR << std::endl;
-        delete priorityArray;
+        delete[] priorityArray;
         exit(1);
     }
 
@@ -113,7 +113,7 @@ void scheduler(int placeHolder){
         idMap[runningId]->setState(RUNNING);
         idMap[runningId]->incrementQuantum();
         ++totalNumOfQuantum;
-        siglongjmp(idMap[runningId]->getEnv(), 1);
+        siglongjmp(idMap[runningId]->getEnv(), 1); //todo: crashes while debugging test1 (without sanitizer) after termination
     }
     else if(runningId != BLOCKED_OR_TERMINATED){
         idMap[runningId]->setState(RUNNING);
@@ -239,17 +239,17 @@ int uthread_change_priority(int tid, int priority){
     return SUCCESS;
 }
 
-/**
- * Generic function for deleting an element with index tid from a given container. If the item
- * doesn't exist in the container, nothing happens.
- */
-template<typename T>
-void removeElement(T& container, int const& tid) {
-    auto position = std::find(container.cbegin(), container.cend(), tid);
-    if(position != container.cend()){
-        container.erase(position);
-    }
-}
+///**
+// * Generic function for deleting an element with index tid from a given container. If the item
+// * doesn't exist in the container, nothing happens.
+// */
+//template<typename T>
+//void removeElement(T& container, int const& tid) {
+//    auto position = std::find(container.cbegin(), container.cend(), tid);
+//    if(position != container.cend()){
+//        container.erase(position);
+//    } //todo delete
+//}
 
 int uthread_terminate(int tid){
     BLOCK;
@@ -261,14 +261,16 @@ int uthread_terminate(int tid){
 
     if(tid == 0){
         idMap.clear();
-        delete priorityArray;
+        delete[] priorityArray;
         exit(0);
     }
 
-    idMap.erase(tid);
+    //idMap[tid] = nullptr;  todo: didn't help
+    idMap.erase(tid); //todo
     availableIds.insert(tid);
     --numOfThreads;
-    removeElement(readyQ, tid);
+//    removeElement(readyQ, tid);
+    readyQ.erase(std::remove(readyQ.begin(), readyQ.end(),tid), readyQ.end()); //todo
 
     if(tid == runningId) {
         runningId = BLOCKED_OR_TERMINATED;
@@ -291,7 +293,8 @@ int uthread_block(int tid){
         return SUCCESS;
     }
     idMap[tid]->setState(BLOCKED);
-    removeElement(readyQ, tid); // remove from READY queue if there
+//    removeElement(readyQ, tid); // remove from READY queue if there
+    readyQ.erase(std::remove(readyQ.begin(), readyQ.end(),tid), readyQ.end()); //todo
 
     if(tid == runningId){
         int ret_val = sigsetjmp(idMap[runningId]->getEnv(),1);
