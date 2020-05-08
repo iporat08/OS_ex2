@@ -7,12 +7,12 @@
 #IncludeRegexTransform: 
 
 /cs/usr/shahaf.hermann/os2test/main.cpp
-array
+uthreads.h
+/cs/usr/shahaf.hermann/os2test/uthreads.h
+string
 -
 iostream
 -
-uthreads.h
-/cs/usr/shahaf.hermann/os2test/uthreads.h
 
 /cs/usr/shahaf.hermann/os2test/uthreads.h
 

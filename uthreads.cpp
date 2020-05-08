@@ -113,7 +113,7 @@ void scheduler(int){
         idMap[runningId]->setState(RUNNING);
         idMap[runningId]->incrementQuantum();
         ++totalNumOfQuantum;
-        siglongjmp(idMap[runningId]->getEnv(), 1); //todo: crashes while debugging test1 (without sanitizer) after termination
+        siglongjmp(idMap[runningId]->getEnv(), 1);
     }
     else if(runningId != BLOCKED_OR_TERMINATED){
         idMap[runningId]->setState(RUNNING);
@@ -239,18 +239,6 @@ int uthread_change_priority(int tid, int priority){
     return SUCCESS;
 }
 
-///**
-// * Generic function for deleting an element with index tid from a given container. If the item
-// * doesn't exist in the container, nothing happens.
-// */
-//template<typename T>
-//void removeElement(T& container, int const& tid) {
-//    auto position = std::find(container.cbegin(), container.cend(), tid);
-//    if(position != container.cend()){
-//        container.erase(position);
-//    } //todo delete
-//}
-
 int uthread_terminate(int tid){
     BLOCK;
     if(idMap.find(tid) == idMap.end()){
@@ -265,12 +253,10 @@ int uthread_terminate(int tid){
         exit(0);
     }
 
-    //idMap[tid] = nullptr;  todo: didn't help
-    idMap.erase(tid); //todo
-    availableIds.insert(tid);
+    idMap.erase(tid);
     --numOfThreads;
-//    removeElement(readyQ, tid);
-    readyQ.erase(std::remove(readyQ.begin(), readyQ.end(),tid), readyQ.end()); //todo
+    readyQ.erase(std::remove(readyQ.begin(), readyQ.end(),tid), readyQ.end());
+    availableIds.insert(tid);
 
     if(tid == runningId) {
         runningId = BLOCKED_OR_TERMINATED;
@@ -293,8 +279,8 @@ int uthread_block(int tid){
         return SUCCESS;
     }
     idMap[tid]->setState(BLOCKED);
-//    removeElement(readyQ, tid); // remove from READY queue if there
-    readyQ.erase(std::remove(readyQ.begin(), readyQ.end(),tid), readyQ.end()); //todo
+
+    readyQ.erase(std::remove(readyQ.begin(), readyQ.end(),tid), readyQ.end());
 
     if(tid == runningId){
         int ret_val = sigsetjmp(idMap[runningId]->getEnv(),1);
@@ -338,11 +324,12 @@ int uthread_get_total_quantums(){
 int uthread_get_quantums(int tid){
     BLOCK;
 
-    if(idMap.find(tid) == idMap.end()){
+    if(!idMap.count(tid)){
         std::cerr << GET_QUANTUM_ERR << std::endl;
         UNBLOCK;
         return FAILURE;
     }
+    int toReturn = idMap[tid]->getNumOfQuantum();
     UNBLOCK;
-    return idMap[tid]->getNumOfQuantum();
+    return toReturn;
 }
